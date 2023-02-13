@@ -17,11 +17,6 @@ Miao-Plugin 是一个 Yunzai-Bot 的升级插件，提供包括角色查询等�
 git clone https://gitee.com/Ryota_Aoki/miao-plugin.git ./plugins/miao-plugin/
 pnpm add image-size -w
 
-// 使用github
-git clone https://github.com/AllureLove98/miao-plugin.git ./plugins/miao-plugin/
-pnpm add image-size -w
-```
-
 进行安装。安装完毕后，管理员只需发送 `#喵喵更新` 即可自动更新 miao-plugin。
 
 如果是手工下载的 zip 压缩包，请将解压后的 miao-plugin 文件夹（请删除压缩自带的-master后缀）放置在 Yunzai-Bot 目录下的 plugins 文件夹内。
