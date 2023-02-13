@@ -18,7 +18,7 @@ git clone https://gitee.com/yoimiya-kokomi/miao-plugin.git ./plugins/miao-plugin
 pnpm add image-size -w
 
 // 使用github
-git clone https://github.com/yoimiya-kokomi/miao-plugin.git ./plugins/miao-plugin/
+git clone https://github.com/AllureLove98/miao-plugin.git ./plugins/miao-plugin/
 pnpm add image-size -w
 ```
 
