@@ -14,7 +14,7 @@ Miao-Plugin 是一个 Yunzai-Bot 的升级插件，提供包括角色查询等�
 
 ```
 // 使用gitee
-git clone https://gitee.com/yoimiya-kokomi/miao-plugin.git ./plugins/miao-plugin/
+git clone https://gitee.com/Ryota_Aoki/miao-plugin.git ./plugins/miao-plugin/
 pnpm add image-size -w
 
 // 使用github
