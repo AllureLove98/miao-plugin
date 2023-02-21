@@ -127,7 +127,7 @@ export const helpList = [{
   }, {
     icon: 86,
     title: '#签到',
-    desc: '米游社原神签到'
+    desc: '原神签到'
   }]
 }, {
   group: '其他查询指令',

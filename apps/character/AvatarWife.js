@@ -130,7 +130,7 @@ const Wife = {
           avatar = lodash.sample(avatarList)
           return await Avatar.renderAvatar(e, avatar, renderType)
         }
-        e.reply('在当前米游社公开展示的角色中未能找到适合展示的角色..')
+        e.reply('在当前HoYoLAB公开展示的角色中未能找到适合展示的角色..')
         return true
       case '设置':
       case '选择':
