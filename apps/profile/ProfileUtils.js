@@ -34,14 +34,16 @@ export async function getOriginalPicture (e) {
       } catch (e) {
       }
       if (!e.isMaster) {
-        if (imgPath.type === 'character' && [2, 0].includes(originalPic)) {
-          e.reply('已禁止获取角色原图...')
-          return true
-        }
-        if (imgPath.type === 'profile' && [1, 0].includes(originalPic)) {
-          e.reply('已禁止获取面板原图...')
-          return true
-        }
+		if (imgPath.type === 'character' && [2, 0].includes(originalPic)) {
+			let imgReply = segment.image('https://gchat.qpic.cn/gchatpic_new/746659424/4144974507-2439053290-125E4E51B9D45F2C955E6675AF7C6CEE/0?term=3&is_origin=0');
+			e.reply([imgReply]);
+			return true
+		}
+		if (imgPath.type === 'profile' && [1, 0].includes(originalPic)) {
+			let imgReply = segment.image('https://gchat.qpic.cn/gchatpic_new/746659424/4144974507-2439053290-125E4E51B9D45F2C955E6675AF7C6CEE/0?term=3&is_origin=0');
+			e.reply([imgReply]);
+			return true
+		}
       }
       if (imgPath && imgPath.img) {
         e.reply(segment.image(`file://${process.cwd()}/plugins/miao-plugin/resources/${decodeURIComponent(imgPath.img)}`), false, { recallMsg: 30 })
