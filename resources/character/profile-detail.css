@@ -513,6 +513,11 @@ body {
 .artis .head span {
   font-size: 14px;
 }
+.mark-ACE²,
+.mark-ACE {
+  color: #ff2d2d;
+  font-weight: bold;
+}
 .mark-ACE,
 .mark-SSS {
   color: #ff9f1a;
