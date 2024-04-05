@@ -20,22 +20,23 @@ const ProfileChange = {
    * @param msg
    * @returns {{}}
    */
-  matchMsg(msg) {
+  matchMsg (msg) {
     if (!/(变|改|换)/.test(msg)) {
       return false
     }
-    msg = msg.toLowerCase().replace(/uid ?:? ?/, '').replace('', '')
+    let game = /星铁/.test(msg) ? 'sr' : 'gs'
+    msg = msg.toLowerCase().replace(/uid ?:? ?/, '').replace('星铁', '')
     let regRet = /^#*(\d{9,10})?(.+?)(详细|详情|面板|面版|圣遗物|伤害[1-7]?)?\s*(\d{9,10})?[变换改](.+)/.exec(msg)
     if (!regRet || !regRet[2]) {
       return false
     }
     let ret = {}
     let change = {}
-    let char = Character.get(lodash.trim(regRet[2]).replace('星铁', ''))
+    let char = Character.get(lodash.trim(regRet[2]).replace(/\d{9,10}/g, ''), game)
+    game = char.isSr ? 'sr' : 'gs'
     if (!char) {
       return false
     }
-    const game = char.game
     const isGs = game === 'gs'
     const keyMap = isGs
       ? {
@@ -68,7 +69,7 @@ const ProfileChange = {
     ret.char = char.id
     ret.mode = regRet[3] === '换' ? '面板' : regRet[3]
     ret.uid = regRet[1] || regRet[4] || ''
-    ret.game = char.game
+    ret.game = game
     msg = regRet[5]
 
     // 更换匹配
@@ -81,11 +82,8 @@ const ProfileChange = {
       // 匹配圣遗物
       let keyRet = keyReg.exec(txt)
       if (keyRet && keyRet[4]) {
-        let char = Character.get(lodash.trim(keyRet[2]))
+        let char = Character.get(lodash.trim(keyRet[2]), game)
         if (char) {
-          if (char.game !== game) {
-            return true
-          }
           lodash.forEach(keyRet[4].split('+'), (key) => {
             key = lodash.trim(key)
             let type = keyTitleMap[key]
@@ -130,17 +128,17 @@ const ProfileChange = {
       }
 
       // 匹配武器
-      let wRet = /^(?:等?级?([1-9][0-9])?级?)?\s*(?:([1-5一二三四五满])?精炼?([1-5一二三四五])?)?\s*(?:等?级?([1-9][0-9])?级?)?\s*(.*)$/.exec(txt)
-      if (wRet && wRet[5]) {
-        let weaponName = lodash.trim(wRet[5])
+      let wRet = /^(?:等?级?([1-9][0-9])?级?)?\s*(?:([1-5一二三四五满])?(?:(精炼?)|(叠影?))?([1-5一二三四五])?)?\s*(?:等?级?([1-9][0-9])?级?)?\s*(.*)$/.exec(txt)
+      if (wRet && wRet[7]) {
+        let weaponName = lodash.trim(wRet[7])
         let weapon = Weapon.get(weaponName, game, ret.char.game)
         if (weapon || weaponName === '武器' || Weapon.isWeaponSet(weaponName)) {
-          let affix = wRet[2] || wRet[3]
+          let affix = wRet[2] || wRet[5]
           affix = { 一: 1, 二: 2, 三: 3, 四: 4, 五: 5, 满: 5 }[affix] || affix * 1
           let tmp = {
             weapon: (Weapon.isWeaponSet(weaponName) ? weaponName : weapon?.name) || '',
             affix: affix || '',
-            level: wRet[1] * 1 || wRet[4] * 1 || ''
+            level: wRet[1] * 1 || wRet[6] * 1 || ''
           }
           if (lodash.values(tmp).join('')) {
             change.weapon = tmp
@@ -176,8 +174,8 @@ const ProfileChange = {
       }
       txt = lodash.trim(txt)
       if (txt) {
-        let chars = Character.get(txt)
-        if (chars && (chars.game === game)) {
+        let chars = Character.get(txt, game)
+        if (chars) {
           char.char = chars.id
         }
       }
@@ -197,7 +195,7 @@ const ProfileChange = {
    * @param game
    * @returns {Avatar|boolean}
    */
-  getProfile(uid, charid, ds, game = 'gs') {
+  getProfile (uid, charid, ds, game = 'gs') {
     if (!charid) {
       return false
     }
@@ -285,7 +283,7 @@ const ProfileChange = {
       if (ds['arti' + idx]) {
         let source = getSource(ds['arti' + idx])
         if (source && source.artis && source.artis[idx]) {
-          artis[idx] = source.artis[idx]
+          artis[idx] = lodash.cloneDeep(source.artis[idx])
         }
       }
       let artisIdx = (isGs ? '00111' : '001122')[idx - 1]

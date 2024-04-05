@@ -239,8 +239,9 @@ export default {
       }
     },
     4: [attr('cpct', 4), {
-      title: '对陷入不少于3个负面效果的地方目标造成的暴击伤害提高[cdmg]%',
+      title: '对陷入不少于3个负面效果的敌方目标造成的暴击率额外提高[cpct]%，暴击伤害提高[cdmg]%',
       data: {
+        cpct: 4,
         cdmg: 24
       }
     }]
@@ -253,5 +254,21 @@ export default {
         stance: 30
       }
     }
+  },
+  无主荒星茨冈尼亚: {
+    2: [attr('cpct', 4), {
+      title: '敌方目标被消灭提高暴击伤害，至多提高[cdmg]%',
+      data: {
+        cdmg: 40
+      }
+    }]
+  },
+  出云显世与高天神国: {
+    2: [attr('atkPct', 12), {
+      title: '存在一名与装备者命途相同的队友时，暴击率提高[cpct]%',
+      data: {
+        cpct: 12
+      }
+    }]
   }
 }

@@ -13,7 +13,7 @@ export default function (staticIdx, keyIdx) {
     ],
     延长记号: [
       staticIdx(1, 'stance'),
-      keyIdx('对触电或风化状态的地方目标伤害提高[dmg]%', 'dmg', 2)
+      keyIdx('对触电或风化状态的敌方目标伤害提高[dmg]%', 'dmg', 2)
     ],
     晚安与睡颜: [
       (tables) => {
@@ -81,6 +81,18 @@ export default function (staticIdx, keyIdx) {
           title: '攻击力提高[atkPct]%',
           data: {
             atkPct: tables[2]
+          }
+        }
+      }
+    ],
+    行于流逝的岸: [
+      staticIdx(1, 'cdmg'),
+      (tables) => {
+        return {
+          title: '造成的伤害提高[dmg]%，终结技伤害额外提高[qDmg]%',
+          data: {
+            dmg: tables[2],
+            qDmg: tables[3]
           }
         }
       }
