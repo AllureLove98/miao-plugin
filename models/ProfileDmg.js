@@ -6,6 +6,7 @@ import DmgBuffs from './dmg/DmgBuffs.js'
 import DmgAttr from './dmg/DmgAttr.js'
 import DmgCalc from './dmg/DmgCalc.js'
 import { MiaoError, Meta, Common } from '#miao'
+import { miaoPath } from '#miao.path'
 
 export default class ProfileDmg extends Base {
   constructor (profile = {}, game = 'gs') {
@@ -20,14 +21,13 @@ export default class ProfileDmg extends Base {
   }
 
   static dmgRulePath (name, game = 'gs') {
-    const _path = process.cwd()
     let dmgFile = [
       { file: 'calc_user', name: '自定义伤害' },
       { file: 'calc_auto', name: '组团伤害', test: () => Common.cfg('teamCalc') },
       { file: 'calc', name: '喵喵' }
     ]
     for (let ds of dmgFile) {
-      let path = `${_path}/plugins/miao-plugin/resources/meta-${game}/character/${name}/${ds.file}.js`
+      let path = `${miaoPath}/resources/meta-${game}/character/${name}/${ds.file}.js`
       if (ds.test && !ds.test()) {
         continue
       }
@@ -131,7 +131,8 @@ export default class ProfileDmg extends Base {
       level: profile.level,
       cons: profile.cons * 1,
       talent,
-      trees: this.trees()
+      trees: this.trees(),
+      weapon: profile.weapon
     }
 
     let { id, weapon, attr, artis } = profile
