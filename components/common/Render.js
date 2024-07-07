@@ -2,14 +2,14 @@ import { Version, Cfg } from '#miao'
 import { miaoPath } from '#miao.path'
 
 const Render = {
-  async render (path, params, cfg) {
+  async render(path, params, cfg) {
     let { e } = cfg
     if (!e.runtime) {
       console.log('未找到e.runtime，请升级至最新版Yunzai')
     }
     return e.runtime.render(cfg.plugin || 'miao-plugin', path, params, {
       retType: cfg.retType || (cfg.retMsgId ? 'msgId' : 'default'),
-      beforeRender ({ data }) {
+      beforeRender({ data }) {
         let pluginName = ''
         if (data.pluginName !== false) {
           pluginName = ` & ${data.pluginName || 'Miao-Plugin'}`
